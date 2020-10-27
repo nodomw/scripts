@@ -1,0 +1,1 @@
+loadstring(syn.request({Url = "https://github.com/ic3w0lf22/Unnamed-ESP/blob/master/UnnamedESP.lua", Method = "GET"}).Body)()

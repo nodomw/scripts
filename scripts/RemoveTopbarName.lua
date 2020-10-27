@@ -1,0 +1,1 @@
+game.CoreGui:WaitForChild("RobloxGui"):WaitForChild("TopBarContainer"):WaitForChild("NameHealthContainer"):Remove()
