@@ -1,4 +1,5 @@
 # scripts
+# I CAN ONLY HELP WITH SCRIPTS THAT AREN'T OBFUSCATED!
 all credit goes to the original creator of the scripts!!!!!!!!!!!
 
 list of scripts i fix sometimes and just generally do stuff with
