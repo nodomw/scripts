@@ -1,5 +1,4 @@
 # scripts
-# I CAN ONLY HELP WITH SCRIPTS THAT AREN'T OBFUSCATED!
 all credit goes to the original creator of the scripts!!!!!!!!!!!
 
 list of scripts i fix sometimes and just generally do stuff with
@@ -13,3 +12,4 @@ for vscode.lua to work you will need to install Synapse Execute for vscode (if y
 open command menu (ctrl + p)
 then type
 `ext install ou1z.synapse-execute-ws`
+# I CAN ONLY HELP WITH SCRIPTS THAT AREN'T OBFUSCATED!
