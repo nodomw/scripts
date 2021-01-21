@@ -1,0 +1,32 @@
+local Plugin = {
+    ["PluginName"] = "NoBlur v1",
+    ["PluginDescription"] = "Remove annoying blur effects in any game.",
+    ["Commands"] = {
+        ["noblur"] = {
+            ["ListName"] = "noblur/unblur",
+            ["Description"] = "Remove annoying blur effects in any game.",
+            ["Aliases"] = {"unblur"},
+            ["Function"] = function(args, speaker)
+                for i, v in pairs(game:GetDescendants()) do
+                    if v:IsA("BlurEffect") then
+                        v.Enabled = false
+                    end
+                end
+            end
+        }, -- mothra#8478
+        ["addblur"] = {
+            ["ListName"] = "addblur/reblur/blur",
+            ["Description"] = "Add blur effects back to the game.",
+            ["Aliases"] = {"blur", "reblur"},
+            ["Function"] = function(args, speaker)
+                for i, v in pairs(game:GetDescendants()) do
+                    if v:IsA("BlurEffect") then
+                        v.Enabled = true
+                    end
+                end
+            end
+        }
+    }
+}
+
+return Plugin

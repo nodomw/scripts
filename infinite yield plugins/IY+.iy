@@ -1,0 +1,1446 @@
+execCmd("IYPLUS")
+execCmd("deletecmd tpposition")
+execCmd("deletecmd offset")
+  function readsave(key)
+    if key ~= nil then
+      return game:GetService("HttpService"):JSONDecode(readfile("IY_FE.iy"))[key]
+    else
+    return game:GetService("HttpService"):JSONDecode(readfile("IY_FE.iy"))
+  end
+end
+  function writesave(key,value)
+    if key ~= nil and value ~= nil then
+      local save = game:GetService("HttpService"):JSONDecode(readfile("IY_FE.iy"))
+      save[key] = value
+      writefile("IY_FE.iy", game:GetService("HttpService"):JSONEncode(save))
+    else notify('Invalid key/value specified to writesave')
+    end
+  end
+function disablecmds()
+if readsave("replacecmds") then
+   bringdesc,killdesc = "bring/betterbring/bbring [plr] (TOOL)","kill/bkill/kill2 [plr]"
+   bringname,killname = {"bbring","bring"},{"bkill","kill"}
+local cmdstodelete = {
+  "kill",
+  "bring",
+  "attach"
+}
+for i,v in pairs(cmdstodelete) do
+  execCmd("deletecmd "..v)
+ end
+else
+   bringdesc,killdesc = "betterbring/bbring [plr] (TOOL)","betterkill/bkill [plr] (TOOL)"
+   bringname,killname = {"bbring"},{"bkill"}
+end
+end
+disablecmds()
+wait(0.3)
+execCmd("IYPLUS")
+local BetterIY = {
+    ["PluginName"] = "Infinite Yield+",
+    ["PluginDescription"] = "Adds some cool extra cmds to the base IY",
+    ["Commands"] = {
+        ["compliment"] = {
+            ["ListName"] = "compliment [plr]",
+            ["Description"] = "Compliments a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              local players = getPlayer(args[1], speaker)
+              for i,v in pairs(players) do
+                if Players[v].Name == speaker.Name then notify("No need to compliment yourself sir/ma'am") else
+              local plrName = Players[v].Name
+            Compliments = {plrName.." is the coolest person in this server!",
+            "I wish "..plrName.." would play with me everyday!",
+            "OMGOMGOMG "..plrName.." IS IN MY GAME OMG OMG OMG OMG!!!",
+            "I wish I could be more like "..plrName,
+            "Will you dayte me "..plrName.."?",
+            "I want "..plrName.." to come over and play some games with me!",
+            plrName.." will you accept my friend request please?",
+            plrName..", I really like your avatar!",
+            plrName..", I really want to be your friend!",
+            plrName.." is truly amazing. Truly!",
+            plrName.." is incredible!",
+            plrName..", you are my favourite here!!",
+            plrName..", I am complimenting you right now at this very moment.",
+            plrName.." you are really awesome",
+            plrName.." when will you be my friend!?",
+            plrName.." is such a great person",
+            plrName.." is a fantastic person!"}
+              game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Compliments[math.random(1, #Compliments)], "All")
+              end
+            end
+            end,
+        },
+        ["insult"] = {
+            ["ListName"] = "insult [plr]",
+            ["Description"] = "Insults a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              local players = getPlayer(args[1], speaker)
+              for i,v in pairs(players) do
+                if Players[v].Name == speaker.Name then notify("No need to insult yourself sir/ma'am") else
+              local plrName = Players[v].Name
+            Insults = {plrName.."'s mom is so fat that she generates her own gravity field",
+            "my grandma has more skill than you",
+            "imagine being "..plrName.." right now",
+            plrName.."'s stench is so bad I can smell it over the internet'",
+            "Rich items don't grant you actual fame, "..plrName,
+            "... The reason I am so silent is because you look so ugly.",
+            plrName.." you have two parts of your brain, 'left' and 'right'. In the left side, there's nothing right. In the right side, there's nothing left.",
+            "Two wrongs don't make a right, take your parents as an example.",
+            "I would roast you "..plrName.." but I don't engage in mental combat with the unarmed.",
+            plrName..", I'm not insulting you. I'm describing you.",
+            "I don't think "..plrName.." is stupid. he/she just has bad luck when thinking.",
+            plrName..", it looks like your face caught on fire and someone tried to put it out with a hammer.",
+            plrName..", you have something on your chin... no, the 3rd one down.",
+            plrName..", brains aren't everything. In your case they're nothing.",
+            "Aww, it's so cute when you try to talk about things you don't understand.",
+            "The human brain is one of the most complex objects in the universe. Is it any wonder that "..plrName.." never learned how to use it.",
+            "Roses are red, Violets are blue. I've got five fingers, The middle one is for you.",
+            plrName..", You're so sad that even Bob the Builder can't fix your life.",
+            " I can feel my personality turning a dull shade of grey when I talk to "..plrName,
+            "I had prepared for a battle of wits but I see you came unarmed, "..plrName,
+            "Sorry I didn't respond to you just now. I was doing something productive and not wasting my precious time with your lowlife speeches.",
+            plrName..", You're so dense, light must bend around you.",
+            plrName..", you look like something I drew with my left hand.",
+            "Staring at the sun without sunglasses is much less painful than looking at "..plrName.."'s face.",
+            "Looking at "..plrName..", I understand why some animals eat their young."}
+              game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Insults[math.random(1, #Insults)], "All")
+              end
+            end
+            end,
+        },
+        ["follow"] = {
+            ["ListName"] = "follow [plr] [distance]",
+            ["Description"] = "Follows a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not args[1] then notify('Error','No player specified')
+            else
+            if not args[2] then distance = -3
+            else distance = tonumber(args[2])
+            end
+            local asd = getPlayer(args[1], speaker)
+            for i,v in pairs(asd) do
+            local asdf = Players[v]
+            flwplr = asdf
+            followed = true
+            end
+            end
+            end,
+        },
+        ["unfollow"] = {
+            ["ListName"] = "unfollow",
+            ["Description"] = "unfollows a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            followed = false
+            end,
+        },
+        ["tpposition"] = {
+            ["ListName"] = "tpposition/tppos [X Y Z]",
+            ["Description"] = "Teleports you or another player to certain coordinates",
+            ["Aliases"] = {"tppos"},
+            ["Function"] = function(args,speaker)
+              local tpX,tpY,tpZ
+              local target
+              local _, count = string.gsub(tostring(args[1]), ",", "")
+              if #args == 2 and count == 3 then
+                local pos = args[2]:split(",")
+                tpX,tpY,tpZ = tonumber(pos[1]),tonumber(pos[2]),tonumber(pos[3])
+                target = game:GetService("Players")[getPlayer(args[1], speaker)[1]]
+              elseif #args == 1 and count == 3 then
+                local pos = args[1]:split(",")
+            	 tpX,tpY,tpZ = tonumber(pos[1]),tonumber(pos[2]),tonumber(pos[3])
+             elseif #args == 3 then
+              tpX,tpY,tpZ = tonumber(args[1]),tonumber(args[2]),tonumber(args[3])
+            elseif #args == 4 then
+                tpX,tpY,tpZ = tonumber(args[2]),tonumber(args[3]),tonumber(args[4])
+                target = game:GetService("Players")[getPlayer(args[1], speaker)[1]]
+              end
+              if not target then
+            		gethrp(speaker).CFrame = CFrame.new(tpX,tpY,tpZ)
+              else
+                local pos = gethrp(target).CFrame
+                if attach(target) then gethrp(speaker).CFrame = CFrame.new(tpX,tpY,tpZ) end
+              end
+            end,
+        },
+        ["offset"] = {
+            ["ListName"] = "offset [X Y Z]",
+            ["Description"] = "Offsets you or another player by certain coordinates",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              local tpX,tpY,tpZ
+              local target
+              local _, count = string.gsub(tostring(args[1]), ",", "")
+              if #args == 2 and count == 3 then
+                local pos = args[2]:split(",")
+                tpX,tpY,tpZ = tonumber(pos[1]),tonumber(pos[2]),tonumber(pos[3])
+                target = game:GetService("Players")[getPlayer(args[1], speaker)[1]]
+              elseif #args == 1 and count == 3 then
+                local pos = args[1]:split(",")
+            	 tpX,tpY,tpZ = tonumber(pos[1]),tonumber(pos[2]),tonumber(pos[3])
+             elseif #args == 3 then
+              tpX,tpY,tpZ = tonumber(args[1]),tonumber(args[2]),tonumber(args[3])
+            elseif #args == 4 then
+                tpX,tpY,tpZ = tonumber(args[2]),tonumber(args[3]),tonumber(args[4])
+                target = game:GetService("Players")[getPlayer(args[1], speaker)[1]]
+              end
+              if not target then
+            		gethrp(speaker).CFrame = gethrp(speaker).CFrame + Vector3.new(tpX,tpY,tpZ)
+              else
+                local pos = gethrp(target).CFrame
+                if attach(target) then gethrp(speaker).CFrame = pos + Vector3.new(tpX,tpY,tpZ) end
+              end
+            end,
+        },
+        ["replacecmds"] = {
+            ["ListName"] = "replacecmds [TOGGLE]",
+            ["Description"] = "replaces cmds such as kill with better versions",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if readsave("replacecmds") then
+              writesave("replacecmds",false) notify("IY+ will no longer replace commands")
+            else writesave("replacecmds",true) notify("IY+ will now replace commands (rejoin for it to take effect)")
+              disablecmds()
+              end
+            end,
+        },
+        ["breakcam"] = {
+            ["ListName"] = "breakcam",
+            ["Description"] = "Makes it so your camera can go through parts, fixed with fixcam",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            workspace.CurrentCamera.CameraSubject = lplayer.Character.Head
+            end,
+        },
+        ["spamkill"] = {
+            ["ListName"] = "spamkill/skill",
+            ["Description"] = "repeatedly kills a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              if getPlayer(args[1], speaker)[1] then
+              spawn(function() if spamkilling then coroutine.yield(spamkilling) spamkilling = nil end end)
+              wait()
+              spamkilling = coroutine.resume(coroutine.create((function()
+              while wait() do execCmd("betterkill "..getPlayer(args[1], speaker)[1])
+                --Players[getPlayer(args[1], speaker)[1]].CharacterAdded:wait()
+                Players[getPlayer(args[1], speaker)[1]].CharacterAdded:wait()
+                repeat wait() until gethrp(Players[getPlayer(args[1], speaker)[1]])
+              end
+            end)))
+              else notify("No player found") end
+            end,
+        },
+        ["unspamkill"] = {
+            ["ListName"] = "unspamkill/unskill",
+            ["Description"] = "stops the loop",
+            ["Aliases"] = {'unskill'},
+            ["Function"] = function(args,speaker)
+              if spamkilling then coroutine.yield(spamkilling) spamkilling = nil end
+            end,
+        },
+        ["tp"] = {
+            ["ListName"] = "tp [plr] [plr] (TOOL)",
+            ["Description"] = "teleports plr1 to plr2",
+            ["Aliases"] = {'teleport'},
+            ["Function"] = function(args,speaker)
+              if not args[2] then notify("need a second player to tp to!") else
+              target1 = getPlayer(args[1], speaker)[1] target1 = game:GetService("Players")[target1]
+              target2 = getPlayer(args[2], speaker)[1] target2 = game:GetService("Players")[target2]
+              oldpos = gethrp(speaker).CFrame
+              if target1 == speaker then notify('Use goto instead!') execCmd("goto "..target2.Name)
+              elseif target2 == speaker then notify('Use bring instead!') execCmd("betterbring "..target1.Name)
+              else
+              if attach(target1) then
+                gethrp(speaker).CFrame = gethrp(target2).CFrame
+                wait(2)
+                speaker.CharacterAdded:wait()
+                repeat wait() until speaker.Character and getpart(speaker)
+                speaker.Character:WaitForChild("HumanoidRootPart").CFrame = oldpos
+              else notify('Failed to attach to plr!') end
+            end
+          end
+            end,
+        },
+        ["betterbring"] = {
+            ["ListName"] = bringdesc,
+            ["Description"] = "brings the plr",
+            ["Aliases"] = bringname,
+            ["Function"] = function(args,speaker)
+              target = getPlayer(args[1], speaker)[1]
+              target = game:GetService("Players")[target]
+              oldpos = gethrp(speaker).CFrame
+              if attach(target) then
+                gethrp(speaker).CFrame = oldpos
+                wait(2)
+                speaker.CharacterAdded:wait()
+                repeat wait() until speaker.Character and getpart(speaker)
+                speaker.Character:WaitForChild("HumanoidRootPart").CFrame = oldpos
+              else notify('Failed to attach to plr!') end
+            end,
+        },
+        ["betterkill"] = {
+            ["ListName"] = killdesc,
+            ["Description"] = "kills a player",
+            ["Aliases"] = killname,
+            ["Function"] = function(args,speaker)
+              target = getPlayer(args[1], speaker)[1]
+              target = game:GetService("Players")[target]
+              if speaker.Backpack:FindFirstChildWhichIsA("Tool") or speaker.Character:FindFirstChildWhichIsA("Tool") then
+              oldpos = gethrp(speaker).CFrame
+              if attach(target) then
+                gethrp(speaker).CFrame = CFrame.new(9223372036854775807,9223372036854775807,9223372036854775807)
+                wait(2)
+                speaker.CharacterAdded:wait()
+                repeat wait() until speaker.Character and getpart(speaker)
+                speaker.Character:WaitForChild("HumanoidRootPart").CFrame = oldpos
+              else notify('Failed to attach to plr!') end
+            else execCmd("kill2 "..target.Name) end
+            end,
+        },
+        ["attach"] = {
+            ["ListName"] = "attach [plr] (TOOL)",
+            ["Description"] = "attaches your plr to the other plr",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              target = game:GetService("Players")[getPlayer(args[1], speaker)[1]]
+              if not attach(target,true) then notify('Failed to attach to plr!') end
+            end,
+        },
+        ["orbit"] = {
+            ["ListName"] = "orbit [plr]",
+            ["Description"] = "orbits a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            local asd = getPlayer(args[1], speaker)
+            for i,v in pairs(asd) do
+            local asdf = Players[v]
+            orbital = true
+            lplayer.Character:FindFirstChildOfClass("Humanoid").Sit = true
+      			RocketPropulsion(5000,100,5000,asdf,"OrbitMove")
+            spawn(function()
+            while wait(0.1) do
+            if orbital then
+            if asdf.Character:FindFirstChildOfClass("Humanoid").Health == 0 then
+            execCmd("unorbit")
+            repeat wait() until asdf.Character:FindFirstChildOfClass("Humanoid") ~= nil
+            local aorb = tostring(asdf)
+            execCmd("orbit " ..aorb)
+            elseif lplayer.Character:FindFirstChildOfClass("Humanoid").Sit ~= true then
+            wait(0.3)
+            if lplayer.Character:FindFirstChildOfClass("Humanoid").Sit ~= true then
+            execCmd("unorbit") end
+            end
+            end
+            end
+            end)
+      		  end
+            end,
+        },
+        ["orbit2"] = {
+            ["ListName"] = "orbit2 [plr] [speed] [offset x,y,z]",
+            ["Description"] = "orbits a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+
+              if not args[1] then notify("Invalid player specified") else
+            local asd = getPlayer(args[1], speaker)
+            local x,y,z = 0,0,0
+            if args[3] then x = args[3] else x = 6 end
+              if args[4] and args[5] then y,z = args[4],args[5] end
+            for i,v in pairs(asd) do
+              execCmd("stare "..Players[v].Name)
+              orbit2 = true
+              orbitplr = Players[v]
+              if args[2] then orbitspeed = args[2] else orbitspeed = 0.5 end
+              orbitoffset = Vector3.new(x,y,z)
+              RotStep = 0
+              lplayer.Character:FindFirstChildOfClass("Humanoid").Sit = true
+              spawn(function() repeat wait() until not lplayer.Character:FindFirstChildOfClass("Humanoid").Sit execCmd("unorbit") end)
+end end
+            end,
+        },
+        ["unorbit"] = {
+            ["ListName"] = "unorbit",
+            ["Description"] = "unorbits a player",
+            ["Aliases"] = {'noorbit'},
+            ["Function"] = function(args,speaker)
+              if orbit2 then
+                execCmd("unstare")
+                orbit2 = false
+                for i=1,30 do
+                  game.RunService.Heartbeat:wait()
+                  gethrp(speaker).Velocity = Vector3.new(0,0,0)
+                end
+              end
+            for i,v in pairs(lplayer.Character:GetDescendants()) do
+          		if v.Name == "OrbitMove" then
+          			v:Destroy()
+          		end
+          	end
+            orbital = false
+          	view(lplayer)
+            end,
+        },
+        ["equiptools"] = {
+            ["ListName"] = "equiptools/etools",
+            ["Description"] = "equips all the tools in your backpack",
+            ["Aliases"] = {'etools'},
+            ["Function"] = function(args,speaker)
+            for _, tool in ipairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+            if tool:IsA("Tool") then
+            tool.Parent = game:GetService("Players").LocalPlayer.Character
+            end
+            end
+            end,
+        },
+        ["pinfo"] = {
+            ["ListName"] = "playerinfo/pinfo [plr]",
+            ["Description"] = "shows information about a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if args[1] then
+            local asd = getPlayer(args[1], speaker)
+            for i,v in pairs(asd) do
+            local asdf = Players[v]
+                createINFO(asdf)
+              end
+            end
+            end,
+        },
+        ["toolsdrop"] = {
+            ["ListName"] = "toolsdrop",
+            ["Description"] = "Makes your tools droppable",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if tooldrop then tooldrop = false
+            else tooldrop = true
+            end
+            end,
+        },
+        ["trip"] = {
+            ["ListName"] = "trip",
+            ["Description"] = "Makes you trip",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            	if lplayer.Character:findFirstChild("Right Leg") then -- credz to Zwolf#3762
+            	local dir = lplayer.Character:findFirstChild("Right Leg")
+            	dir.Anchored = true
+            	if dir.Anchored == true then
+                wait(.5)
+                lplayer.Character.Humanoid.Sit = true
+                wait(1)
+                lplayer.Character.Humanoid.Sit = false
+                dir.Anchored = false
+            	end
+            	end
+            end,
+        },
+        ["trip2"] = {
+            ["ListName"] = "trip2 (num)",
+            ["Description"] = "Alternative method to trip (faster)",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            local Humanoid = lplayer.Character:FindFirstChild("Humanoid")
+            local body = Instance.new("BodyAngularVelocity")
+            body.Parent = Humanoid.Parent[CheckRig()]
+            body.AngularVelocity = Vector3.new(-10,-10,-10)
+            Humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+            wait(0.1)
+            body:Destroy()
+            if args[1] then
+            wait(tonumber(args[1]))
+            else
+            wait(2)
+            end
+            Humanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+            end,
+        },
+        ["walk"] = {
+            ["ListName"] = "walk",
+            ["Description"] = "Makes you walk forward",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            char = lplayer.Character
+            if char:FindFirstChild("walk") then
+            char.walk:Destroy()
+            end
+            hum = char:FindFirstChildOfClass("Humanoid")
+            local part = Instance.new("Part")
+            part.Name = "walk"
+            part.Parent = char
+            part.Position = gethrp(speaker).CFrame.Position + gethrp(speaker).CFrame.lookVector * 4
+            part.CanCollide = false
+            part.Transparency = 1
+            walking = true
+            end,
+        },
+        ["unwalk"] = {
+            ["ListName"] = "unwalk/nowalk",
+            ["Description"] = "Stops you from walking forward",
+            ["Aliases"] = {'nowalk'},
+            ["Function"] = function(args,speaker)
+            walking = false
+            if char:FindFirstChild("walk") then
+            char.walk:Destroy()
+            end
+            end,
+        },
+        ["recycledparts"] = {
+            ["ListName"] = "recycledparts/parts",
+            ["Description"] = "displays recyclesparts",
+            ["Aliases"] = {'parts'},
+            ["Function"] = function(args,speaker)
+            if not _G.recycledparts then _G.recycledparts = {} end
+            if not oldtitle then oldtitle = Title.Text
+              spawn(function()
+              while wait() do
+                if oldtitle then
+              Title.Text = oldtitle.." ("..#_G.recycledparts..")"
+            else break end end end)
+          else
+            Title.Text = oldtitle
+	            oldtitle = false
+			end
+            end,
+        },
+        ["stopsit"] = {
+            ["ListName"] = "stopsit/nosit (toggle)",
+            ["Description"] = "keeps you from sitting",
+            ["Aliases"] = {'nosit'},
+            ["Function"] = function(args,speaker)
+            if stopsitting then stopsitting = false
+            else stopsitting = true
+            end
+            end,
+        },
+        ["inviscam"] = {
+            ["ListName"] = "inviscam/invisiblecam",
+            ["Description"] = "Makes your camera go through objects always keeping the humanoid visible (use fixcam to disable)",
+            ["Aliases"] = {'invisiblecam'},
+            ["Function"] = function(args,speaker)
+            lplayer.DevCameraOcclusionMode = "Invisicam"
+            end,
+        },
+        ["stare"] = {
+            ["ListName"] = "stare [plr]",
+            ["Description"] = "O.O",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            local asd = getPlayer(args[1], speaker)
+            for i,v in pairs(asd) do
+            local asdf = Players[v]
+            stareplr = asdf
+            staring = true
+            end
+            end,
+        },
+        ["unstare"] = {
+            ["ListName"] = "unstare/nostare",
+            ["Description"] = "un-O.O",
+            ["Aliases"] = {'nostare'},
+            ["Function"] = function(args,speaker)
+            staring = false
+            end,
+        },
+        ["boostfps"] = {
+            ["ListName"] = "boostfps/fpsboost",
+            ["Description"] = "Adds frames to your frames so you can have more frames",
+            ["Aliases"] = {'fpsboost'},
+            ["Function"] = function(args,speaker)
+              if args[1] then
+              decalsyeeted = true -- Leaving this on makes games look shitty but the fps goes up by at least 20.
+            else decalsyeeted = false end
+              local g = game
+              local w = g.Workspace
+              local l = g.Lighting
+              local t = w.Terrain
+              t.WaterWaveSize = 0
+              t.WaterWaveSpeed = 0
+              t.WaterReflectance = 0
+              t.WaterTransparency = 0
+              l.GlobalShadows = false
+              l.FogEnd = 9e9
+              l.Brightness = 0
+              settings().Rendering.QualityLevel = "Level01"
+              for i, v in pairs(g:GetDescendants()) do
+                  if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+                      v.Material = "Plastic"
+                      v.Reflectance = 0
+                  elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+                      v.Transparency = 1
+                  elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+                      v.Lifetime = NumberRange.new(0)
+                  elseif v:IsA("Explosion") then
+                      v.BlastPressure = 1
+                      v.BlastRadius = 1
+                  elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+                      v.Enabled = false
+                  elseif v:IsA("MeshPart") then
+                      v.Material = "Plastic"
+                      v.Reflectance = 0
+                      v.TextureID = 10385902758728957
+                  end
+              end
+              for i, e in pairs(l:GetChildren()) do
+                  if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+                      e.Enabled = false
+                  end
+              end
+            end,
+        },
+        ["die"] = {
+            ["ListName"] = "die/oof",
+            ["Description"] = "kills u",
+            ["Aliases"] = {'oof'},
+            ["Function"] = function(args,speaker)
+            lplayer.Character:BreakJoints()
+            lplayer.Character:FindFirstChildOfClass("Humanoid").Health = 0
+            end,
+        },
+        ["kill2"] = {
+            ["ListName"] = "kill2 [plr]",
+            ["Description"] = "kill using fling",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              local timeout = false
+              spawn(function() wait(5) timeout = true end)
+              oldpos = gethrp(speaker).CFrame
+              local asd = getPlayer(args[1], speaker)
+              for i,v in pairs(asd) do
+              local p = Players[v]
+            execCmd("spin 3000")
+            execCmd('noclip nonotify')
+            repeat
+            game:GetService("RunService").Heartbeat:wait()
+            gethrp(speaker).CFrame = gethrp(p).CFrame * CFrame.new(math.random(-4,4),math.random(-4,4),math.random(-4,4))
+              ve = p.Character:FindFirstChild("HumanoidRootPart").Velocity
+            until ve.y > 100 or ve.x > 100 or ve.z > 100 or p.Character:FindFirstChildOfClass("Humanoid").Health == 0 or lplayer.Character:FindFirstChildOfClass("Humanoid").Health == 0 or timeout
+             execCmd("unspin")
+             execCmd('clip nonotify')
+             repeat
+             lplayer.Character.HumanoidRootPart.CFrame = oldpos
+             gethrp(speaker).Velocity = Vector3.new(0,0,0)
+             wait()
+           --until lplayer.Character:FindFirstChild("HumanoidRootPart").Velocity == Vector3.new(0,0,0)
+           local velo = gethrp(speaker).Velocity
+         until velo.y < 1 or velo.x < 1 or velo.z < 1
+             wait()
+             gethrp(speaker).CFrame = oldpos
+             gethrp(speaker).Velocity = Vector3.new(0,0,0)
+             wait()
+             gethrp(speaker).CFrame = oldpos
+             gethrp(speaker).Velocity = Vector3.new(0,0,0)
+             gethrp(speaker).CFrame = oldpos
+           end
+            end,
+        },
+        ["plrplatform"] = {
+            ["ListName"] = "plrplatform/form [num]",
+            ["Description"] = "gives the player a platform to stand on",
+            ["Aliases"] = {'form'},
+            ["Function"] = function(args,speaker)
+              if not args[1] then notify("No player specified") else
+              local players = getPlayer(args[1], speaker)
+                for i,v in pairs(players) do
+             if not _G.recycledparts then _G.recycledparts = {} end
+             math.randomseed(os.time())
+             target = Players[v].Name
+             if not args[2] then args[2] = -1.5 end
+             offset = Vector3.new(0,tonumber(args[2]),0)
+             function fastwait() game:GetService("RunService").Heartbeat:wait() end
+
+
+
+
+
+
+
+             if not _G.recycledparts[1] then
+              accessory = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Accessory")
+              h = accessory.Handle
+              if h:FindFirstChildOfClass("SpecialMesh") then h:FindFirstChildOfClass("SpecialMesh"):Destroy() end
+              accessory.Parent = workspace
+              if accessory == nil then error("No hats to use") end
+             else
+                 if not _G.recycledparts[1]:FindFirstChild("Handle") then table.remove(_G.recycledparts,1) end
+                 repeat
+                     if _G.recycledparts[1] then
+                     if not _G.recycledparts[1]:FindFirstChild("Handle") then print("Removed "..tostring(_G.recycledparts[1]).." because it had no valid handle.")
+                         table.remove(_G.recycledparts,1) end end
+                     until not _G.recycledparts[1] or _G.recycledparts[1]:FindFirstChild("Handle") ~= nil
+             accessory = _G.recycledparts[1] table.remove(_G.recycledparts,1)
+                 h = accessory.Handle h.Anchored = true
+                 if h then if h:FindFirstChildWhichIsA("BodyGyro") then h:FindFirstChildWhichIsA("BodyGyro"):Destroy() end if h:FindFirstChildWhichIsA("BodyPosition") then h:FindFirstChildWhichIsA("BodyPosition"):Destroy() end end
+             end
+
+
+
+
+
+             local LocalPlayer = game:GetService("Players").LocalPlayer
+
+
+                 h.Anchored = false
+                 h.Massless = true
+                 mover = Instance.new("BodyPosition", h)
+                 gyro = Instance.new("BodyGyro", h)
+                 mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+
+
+
+
+                 repeat mover.Position = (gethrp(game:GetService("Players")[target]).CFrame * CFrame.new(offset)).p
+                 fastwait() h.CanCollide = false
+             until game:GetService("Players")[target].Character == nil or game:GetService("Players")[target].Character:FindFirstChildOfClass("Humanoid").Health <= 0 or game:GetService("Players")[target].Character.Humanoid == nil or 2/wait() <= 2 mover.Position = Vector3.new(999,999,999) h.CanCollide = true
+             table.insert(_G.recycledparts,accessory)
+             wait(0.1)
+             end
+
+           end
+
+            end,
+        },
+        ["carpet"] = {
+            ["ListName"] = "carpet [plr]",
+            ["Description"] = "makes u a carpet for other players",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+
+              if CheckRig() == 'Torso' then
+
+              carpetonrespawn = true
+              if args[1] then
+              local asd = getPlayer(args[1], speaker)
+              for i,v in pairs(asd) do
+              local asdf = Players[v]
+              local Anim3 = Instance.new("Animation")
+              Anim3.AnimationId = "rbxassetid://282574440"
+              track3 = lplayer.Character.Humanoid:LoadAnimation(Anim3)
+              track3:Play(.1, 1, 1)
+              bplrr = asdf.Name
+              banpl = true
+            end
+            else
+            local Anim3 = Instance.new("Animation")
+            Anim3.AnimationId = "rbxassetid://282574440"
+            repeat wait() until lplayer.Character:FindFirstChildOfClass("Humanoid") ~= nil
+            track3 = lplayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim3)
+            track3:Play(.1, 1, 1)
+          end
+          lplayer.CharacterAdded:Connect(function() if carpetonrespawn then
+          repeat wait() until lplayer.Character:FindFirstChildOfClass("Humanoid") ~= nil
+          local Anim3 = Instance.new("Animation")
+          Anim3.AnimationId = "rbxassetid://282574440"
+          track3 = lplayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim3)
+          track3:Play(.1, 1, 1)
+           end
+           end)
+           else
+           notify('This Command Requires R6 RigType!') end
+              end,
+          },
+        ["uncarpet"] = {
+            ["ListName"] = "uncarpet/nocarpet",
+            ["Description"] = "uncarpets u",
+            ["Aliases"] = {'nocarpet'},
+            ["Function"] = function(args,speaker)
+            carpetonrespawn = false
+            banpl = false
+            track3:Stop()
+            end,
+        },
+        ["tricktools"] = {
+            ["ListName"] = "tricktools/tricks",
+            ["Description"] = "gives you trick tools",
+            ["Aliases"] = {'tricks'},
+            ["Function"] = function(args,speaker)
+            spawn(function()
+            pl=game:GetService("Players").LocalPlayer
+            me=pl.Character
+            xl=me.Torso['Right Shoulder']
+            t=Instance.new("HopperBin",pl.Backpack)
+            t.Name="360"
+            local debounce=false
+            function _restoreproperties()
+            Holder = player.Character
+            Torso = Holder:FindFirstChild("Torso")
+            RightS = Torso:FindFirstChild("Right Shoulder")
+            LeftS = Torso:FindFirstChild("Left Shoulder")
+            RightH = Torso:FindFirstChild("Right Hip")
+            LeftH = Torso:FindFirstChild("Left Hip")
+            RightS.MaxVelocity = .15
+            LeftS.MaxVelocity = .15
+            RightH.MaxVelocity = .1
+            LeftH.MaxVelocity = .1
+            RightS.DesiredAngle = 0
+            LeftS.DesiredAngle = 0
+            LeftH.DesiredAngle = 0
+            RightH.DesiredAngle = 0
+            end
+            function ManageAnimation(value)
+            Holder = player.Character
+            Player = player
+            if value == "no anim" then
+            Anim = Holder:FindFirstChild("Animate")
+            if Anim~=nil then
+            Anim.Disabled = true
+            Anim.Parent = Player
+            end
+            elseif value == "re-anim" then
+            Anim = Player:FindFirstChild("Animate")
+            if Anim~=nil then
+            Anim.Disabled = false
+            Anim.Parent = Holder
+            end
+            end
+            end
+            function Down(ml)
+            for i=1, ml.velocity.y/3 do
+            ml.velocity = ml.velocity+Vector3.new(0,-4.25,0)
+            wait()
+            end
+            ml:Remove()
+            end
+            function Flip()
+            if debounce==true then return end
+            debounce=true
+            Char = player.Character
+            Human = Char.Humanoid
+            Torso = Char.Torso
+            CF = Torso.CFrame
+            Human.PlatformStand = true
+            VelUp = Instance.new("BodyVelocity")
+            VelUp.velocity = Vector3.new(0,50,0)+Torso.CFrame.lookVector*26 --Middle (0,0,0). Change for height.
+            VelUp.P = VelUp.P*2
+            VelUp.maxForce = Vector3.new(10000,10000,10000)*999
+            VelUp.Parent = Torso
+            coroutine.resume(coroutine.create(Down),VelUp)
+            Gyro = Instance.new("BodyGyro")
+            Gyro.P = Gyro.P*10
+            Gyro.maxTorque = Vector3.new(100000,100000,100000)*999
+            Gyro.cframe = CF
+            Gyro.Parent = Torso
+            for i=1, 5 do --The amount of time your guy flips.
+            Gyro.cframe = Gyro.cframe*CFrame.fromEulerAnglesXYZ(math.pi/-5,0,0) --The amount of flips. 1 = -16, 2 = -8
+            wait()
+            end
+            wait(0)
+            for i=1, 9 do --The amount of time your guy flips.
+            Gyro.cframe = Gyro.cframe*CFrame.fromEulerAnglesXYZ(0,math.pi/4.5,0) --The amount of flips. 1 = -16, 2 = -8
+            wait()
+            end
+            for i=1, 5 do --The amount of time your guy flips.
+            Gyro.cframe = Gyro.cframe*CFrame.fromEulerAnglesXYZ(math.pi/-5,0,0) --The amount of flips. 1 = -16, 2 = -8
+            wait()
+            end
+            Gyro.cframe = CF
+            wait()
+            Gyro:Remove()
+            Human.PlatformStand = false
+            _restoreproperties()
+            debounce=false
+            end
+            function onActive(mouse)
+            player = game.Players.LocalPlayer
+            if player==nil then return end
+            mouse.Button1Down:connect(function() Flip() end)
+            end
+            script.Parent = t.Selected:connect(onActive)
+            end)
+
+            end,
+        },
+        ["update"] = {
+            ["ListName"] = "updatelog/update",
+            ["Description"] = "shows information about the latest update",
+            ["Aliases"] = {'updates','updatelog','updatelogs'},
+            ["Function"] = function(args,speaker)
+            updatelog()
+            end,
+        },
+        ["trampoline"] = {
+            ["ListName"] = "trampoline [plr] [power]",
+            ["Description"] = "makes the player go flying into the air",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              if CheckRig() == 'Torso' then
+              local timeout = false
+              spawn(function() wait(5) timeout = true end)
+              oldpos = gethrp(speaker).CFrame
+              local asd = getPlayer(args[1], speaker)
+              for i,v in pairs(asd) do
+              local p = Players[v]
+              local oldhh = lplayer.Character:FindFirstChildOfClass("Humanoid").HipHeight
+            execCmd("carpet "..p.Name)
+            execCmd("float")
+            spawn(function() wait(0.5) if args[2] then execCmd("hipheight "..tostring(args[2])) else execCmd("hipheight 50") end end)
+            repeat
+            game:GetService("RunService").Heartbeat:wait()
+              ve = gethrp(speaker).Velocity
+            until ve.y > 50 or ve.x > 50 or ve.z > 50 or p.Character:FindFirstChildOfClass("Humanoid").Health == 0 or lplayer.Character:FindFirstChildOfClass("Humanoid").Health == 0 or timeout
+             execCmd("uncarpet")
+             execCmd("unfloat")
+             execCmd("hipheight "..tostring(oldhh))
+             --[[
+             lplayer.Character.HumanoidRootPart.CFrame = oldpos
+             lplayer.Character:FindFirstChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+             wait()
+             lplayer.Character.HumanoidRootPart.CFrame = oldpos
+             lplayer.Character:FindFirstChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+             wait()
+             lplayer.Character.HumanoidRootPart.CFrame = oldpos
+             lplayer.Character:FindFirstChild("HumanoidRootPart").Velocity = Vector3.new(0,0,0)
+             ]]
+             repeat
+             lplayer.Character.HumanoidRootPart.CFrame = oldpos
+             gethrp(speaker).Velocity = Vector3.new(0,0,0)
+             wait()
+           --until lplayer.Character:FindFirstChild("HumanoidRootPart").Velocity == Vector3.new(0,0,0)
+           local velo = gethrp(speaker).Velocity
+         until velo.y < 1 or velo.x < 1 or velo.z < 1
+           end
+         else notify("This command requires R6!") end
+            end,
+        },
+        ["IYPLUS"] = {
+            ["ListName"] = "",
+            ["Description"] = "oh hai, you've found me",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              --make sure u don't run the cmd twice
+              if not completehomo then completehomo = true
+              --fix update loop
+              function fixme()
+              local iysave = game:GetService("HttpService"):JSONDecode(readfile("IY_FE.iy"))
+              for i,v in pairs(iysave.PluginsTable) do if readfile(v):sub(0,17) == 'execCmd("IYPLUS")' and v ~= "IY+.iy" then
+                badplugin = v end end
+              end
+
+            local Version = "1.3b"
+            local update = game:HttpGet("https://pastebin.com/raw/d6fdWksH",false)
+            coroutine.resume(coroutine.create(function()
+            if update ~= "IY+ " .. Version then
+            fixme()
+            notify('Updating...','Updating to ' .. update)
+            writefile("IY+.iy",game:HttpGet("https://pastebin.com/raw/ZG5GgEgk",false))
+            if badplugin then deletePlugin(badplugin) end
+            deletePlugin("IY+.iy")
+            wait(0.2)
+            addPlugin("IY+.iy")
+            wait(1) if badplugin then notify("Removed "..badplugin.." from your plugins list because of a conflicting filename.") end
+updatelog()
+end
+coroutine.yield()
+end)
+)
+function gethrp(plr)
+return plr.Character:FindFirstChild("HumanoidRootPart") or plr.Character:FindFirstChild("Torso") or plr.Character:FindFirstChild("UpperTorso") or false
+end
+
+function updatelog()
+local UpdateLog = Instance.new("ScreenGui")
+local TextBox = Instance.new("TextBox")
+local TextButton = Instance.new("TextButton")
+local TextLabel = Instance.new("TextLabel")
+local log = game:HttpGet("https://pastebin.com/raw/vZwkG1Gt",false)
+--Properties:
+UpdateLog.Name = "UpdateLog"
+UpdateLog.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+UpdateLog.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+TextBox.Parent = UpdateLog
+TextBox.Active = false
+TextBox.BackgroundColor3 = Color3.new(0, 0, 0)
+TextBox.Position = UDim2.new(-0.5, 0, -0.5, 0)
+TextBox.Selectable = false
+TextBox.Size = UDim2.new(0.3400383, 0, 0.514388502, 0)
+TextBox.ClearTextOnFocus = false
+TextBox.Font = Enum.Font.SourceSans
+TextBox.MultiLine = true
+TextBox.ShowNativeInput = false
+TextBox.Text = log
+TextBox.TextColor3 = Color3.new(0, 1, 0)
+TextBox.TextSize = 40
+TextBox.TextWrapped = true
+TextBox:TweenPosition(UDim2.new(0.329961658, 0, 0.485489219, 0),1,5,2)
+TextBox:GetPropertyChangedSignal("Text"):Connect(function() TextBox.Text = log end)
+
+TextButton.Parent = TextBox
+TextButton.Active = false
+TextButton.BackgroundColor3 = Color3.new(0, 1, 0)
+TextButton.Position = UDim2.new(0.935211241, 0, 0, 0)
+TextButton.Selectable = false
+TextButton.Size = UDim2.new(0.064788729, 0, 0.0573770478, 0)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "X"
+TextButton.TextColor3 = Color3.new(0, 0, 0)
+TextButton.TextSize = 14
+
+TextLabel.Parent = TextBox
+TextLabel.Active = true
+TextLabel.BackgroundColor3 = Color3.new(0.454902, 0.454902, 0.454902)
+TextLabel.Size = UDim2.new(0.935211241, 0, 0.0573770478, 0)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Update log for " .. update
+TextLabel.TextColor3 = Color3.new(0, 0, 0)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14
+TextLabel.TextWrapped = true
+-- Scripts:
+function SCRIPT_CVUZ90_FAKESCRIPT() -- TextLabel.LocalScript
+	local script = Instance.new('LocalScript')
+	script.Parent = TextLabel
+	local UserInputService = game:GetService("UserInputService")
+
+	local gui = script.Parent.Parent
+
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+
+	local function update(input)
+	local delta = input.Position - dragStart
+	gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+
+	gui.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+	dragging = true
+	dragStart = input.Position
+	startPos = gui.Position
+
+	input.Changed:Connect(function()
+	if input.UserInputState == Enum.UserInputState.End then
+	dragging = false
+	end
+	end)
+	end
+	end)
+
+	gui.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+	dragInput = input
+	end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+	update(input)
+	end
+	end)
+
+end
+coroutine.resume(coroutine.create(SCRIPT_CVUZ90_FAKESCRIPT))
+function SCRIPT_ERBL87_FAKESCRIPT() -- UpdateLog.LocalScript
+	local script = Instance.new('LocalScript')
+	script.Parent = UpdateLog
+	local bar = script.Parent.TextBox
+	function closegui()
+		bar:TweenPosition(UDim2.new(-0.5,0,-0.5,0),1,7,5)
+		wait(5)
+		script.Parent:Destroy()
+		end
+	script.Parent.TextBox.TextButton.MouseButton1Click:connect(closegui)
+	end
+coroutine.resume(coroutine.create(SCRIPT_ERBL87_FAKESCRIPT))
+end
+
+plrspawntime = {}
+function spawned(plr)
+  plrspawntime[plr.Name] = os.time()
+  plr.CharacterAdded:connect(function()
+  plrspawntime[plr.Name] = os.time()
+  end)
+end
+  for i,v in pairs(Players:GetPlayers()) do spawned(v) end
+  Players.PlayerAdded:connect(function(plr) spawned(plr) end)
+
+function attach(target,norespawn)
+  if plrspawntime[speaker.Name] <= plrspawntime[target.Name] then
+    execCmd("respawn") end
+    wait()
+    repeat wait() until speaker.Character and speaker.Character:FindFirstChildOfClass("Humanoid") and speaker.Character:FindFirstChild("HumanoidRootPart") wait()
+    local timeout
+    spawn(function() wait(2) timeout = true end)
+    repeat wait() until speaker.Backpack:FindFirstChildWhichIsA("Tool") or timeout
+    timeout = nil
+    wait()
+if speaker.Backpack:FindFirstChildOfClass("Tool") then
+    if target ~= nil then
+      local char = speaker.Character
+      local tchar = target.Character
+      local hum = speaker.Character:FindFirstChildWhichIsA("Humanoid")
+      local hrp = gethrp(speaker)--speaker.Character.HumanoidRootPart
+      local hrp2 = gethrp(target) --target.Character:FindFirstChild("HumanoidRootPart") or target.Character:FindFirstChild("Torso") or target.Character:FindFirstChild("UpperTorso")
+      hum.Name = "1"
+      local newHum = hum:Clone()
+      newHum.Parent = char
+      newHum.Name = "Humanoid"
+      wait(0.1)
+      hum:Destroy()
+      workspace.CurrentCamera.CameraSubject = char
+      newHum.DisplayDistanceType = "None"
+      wait(0.1)
+      local tool = speaker.Backpack:FindFirstChildWhichIsA("Tool")
+      tool.Parent = char
+      gottem = false
+      local connection
+      spawn(function() connection = tchar.ChildAdded:connect(function(newtool) if newtool == tool then gottem = true wait(2) gottem = false connection:Disconnect() end end) end)
+      hrp.CFrame = hrp2.CFrame * CFrame.new(0, 0, 0) * CFrame.new(math.random(-50, 50)/200,math.random(-50, 50)/200,math.random(-50, 50)/200)
+      local n = 0
+      repeat
+        game:GetService("RunService").Heartbeat:wait()
+        n = n + 1
+        hrp.CFrame = hrp2.CFrame * CFrame.Angles(math.rad(math.random(0,10)),math.rad(math.random(0,10)),math.rad(math.random(0,10)))
+      until n == 300 or gottem
+      if norespawn == nil or norespawn == false and gottem then spawn(function() wait(1.8) newHum.Health = 0 newHum:Destroy() gethrp(speaker):Destroy() gethrp(speaker):Destroy() wait(0.1) execCmd("respawn") end) end --newHum.Health = 0 wait() execCmd("respawn") end) end
+      if gottem then return true else return false end
+    end
+  else
+    spawn(function() wait(0.3) notify('Tool Required','You need to have a tool to use this command') end)
+    return false
+end
+end
+
+
+function CheckRig(plr)
+if not plr or plr == nil then
+ if game:GetService("Players").LocalPlayer.Character then
+   local Humanoid = game:GetService("Players").LocalPlayer.Character:WaitForChild('Humanoid') or game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+   if Humanoid.RigType == Enum.HumanoidRigType.R15 then
+     return 'UpperTorso'
+     else return 'Torso'
+   end
+ end
+else
+if plr.Character then
+ local Humanoid = plr.Character:FindFirstChildOfClass("Humanoid") or plr.Character:WaitForChild("Humanoid")
+ if Humanoid.RigType == Enum.HumanoidRigType.R15 then
+   return 'UpperTorso'
+ else return 'Torso'
+ end
+end
+end
+end
+
+            carpetonrespawn = true
+            gsTween = game:GetService("TweenService")
+            gsCoreGui = game:GetService("CoreGui")
+            stopsitting = false
+            followed = false
+            distance = -3
+            walking = false
+            stareplr = nil
+            staring = false
+            currentToolSize = ""
+            currentGripPos = ""
+            tooldrop = false
+            orbit2 = false
+            RotStep = 0
+            lplayer = game:GetService("Players").LocalPlayer
+            game:GetService('RunService').Heartbeat:connect(function()
+            if tooldrop then
+            for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+            if v:IsA("Tool") and not v.CanBeDropped then
+            v.CanBeDropped = true
+            end
+            end
+            end
+
+            if orbit2 then
+               RotStep = RotStep + orbitspeed
+               --lplayer.Character.HumanoidRootPart.CFrame = CFrame.new(orbitplr.Character.HumanoidRootPart.CFrame.Position) * CFrame.Angles(0,math.rad(RotStep),0) * CFrame.new(orbitoffset)
+gethrp(speaker).CFrame = CFrame.new(gethrp(orbitplr).CFrame.Position) * CFrame.Angles(0,math.rad(RotStep),0) * CFrame.new(orbitoffset)
+end
+
+
+
+
+
+
+
+
+
+
+
+            if banpl then
+              --lplayer.Character.HumanoidRootPart.CFrame = game:GetService("Players")[bplrr].Character.HumanoidRootPart.CFrame
+              gethrp(speaker).CFrame = gethrp(game:GetService("Players")[bplrr]).CFrame
+            end
+            if stopsitting then
+              pcall(function() lplayer.Character:FindFirstChildOfClass("Humanoid").Sit = false end)
+            end
+            if staring then
+          	pcall(function()
+              --lplayer.Character.HumanoidRootPart.CFrame = CFrame.new(lplayer.Character[CheckRig()].Position, game:GetService("Players")[stareplr.Name].Character[CheckRig()].Position) end)
+              lplayer.Character.HumanoidRootPart.CFrame = CFrame.new(lplayer.Character[CheckRig()].Position, game:GetService("Players")[stareplr.Name].Character[CheckRig()].Position) end)
+              --local a = game:GetService("Players")[stareplr.Name].Character.Torso.Position
+              --lplayer.Character.HumanoidRootPart.CFrame = CFrame.new(lplayer.Character.Torso.Position, Vector3.new(a.X,0,a.Z)
+          	end
+            if followed then
+            if lplayer.Character:FindFirstChildOfClass("Humanoid").Sit == true then lplayer.Character:FindFirstChildOfClass("Humanoid").Sit = false
+            end
+            if flwplr.Character:FindFirstChildOfClass("Humanoid") == 0 then
+            flwplr.CharacterAdded:Connect(function() followed = true end)
+            followed = false
+            else
+              pcall(function() gethrp(speaker).CFrame = gethrp(flwplr).CFrame + gethrp(flwplr).CFrame.lookVector * distance end)
+              --pcall(function() lplayer.Character.HumanoidRootPart.CFrame = flwplr.Character.HumanoidRootPart.CFrame + flwplr.Character.HumanoidRootPart.CFrame.lookVector * distance end)
+              end
+            end
+            pcall(function()
+            if walking then
+            if char.HumanoidRootPart ~= nil then
+            char.walk.Position = char.HumanoidRootPart.CFrame.Position + char.HumanoidRootPart.CFrame.lookVector * 4
+            hum:MoveTo(char.walk.Position)
+            end
+            end
+            end)
+            end)
+            function view(plr)
+            	if plr.Character.Humanoid ~= nil then
+            		workspace.CurrentCamera.CameraSubject = plr.Character.Humanoid
+            	else
+            		workspace.CurrentCamera.CameraSubject = plr.Character.Head
+            	end
+            end
+            function RocketPropulsion(maxthrust,maxspeed,thrustp,targetplr,name)
+            	local l = Instance.new("RocketPropulsion")
+            	--l.Parent = lplayer.Character.HumanoidRootPart
+              l.Parent = gethrp(speaker)
+            	l.CartoonFactor = 1
+            	l.MaxThrust = maxthrust
+            	l.MaxSpeed = maxspeed
+            	l.ThrustP = thrustp
+            	l.Name = name
+            	l.Target = gethrp(speaker)
+              --l.Target = targetplr.Character.HumanoidRootPart
+            	l:Fire()
+            end
+            function age(num)
+            local y,m,d = 0,0,0
+            repeat if num >= 365 then y = y + 1 num = num - 365
+                elseif num >= 31 then m = m + 1 num = num - 31
+                                 else d = d + 1 num = num - 1 end until num == 0
+            y = tostring(y) m = tostring(m) d = tostring(d)
+            if y == "1" then y = "1 Year, " else y = y.." Years, " end
+            if m == "1" then m = "1 Month, " else m = m.." Months, " end
+            if d == "1" then d = "1 Day" else d = d.." Days" end
+                t = y..m..d
+            return t end
+
+
+
+            function createINFO(player)
+              local mem = tostring(player.MembershipType)
+            	local InfoGUIv2 = Instance.new("ScreenGui")
+            	local Frame = Instance.new("Frame")
+            	local Frame_2 = Instance.new("Frame")
+            	local infoguiCLOSE = Instance.new("TextButton")
+            	local Frame_3 = Instance.new("Frame")
+            	local playerName = Instance.new("TextLabel")
+            	local Frame_4 = Instance.new("Frame")
+            	local playerAvatar = Instance.new("ImageLabel")
+            	local playerAccAge = Instance.new("TextLabel")
+            	local playerId = Instance.new("TextLabel")
+            	local playerOs = Instance.new("TextLabel")
+            	local playerMembership = Instance.new("TextLabel")
+            	local Frame_5 = Instance.new("Frame")
+            	local Frame_6 = Instance.new("Frame")
+            	InfoGUIv2.Name = "InfoGUIv2"
+            	InfoGUIv2.Parent = gsCoreGui
+            	Frame.Parent = InfoGUIv2
+            	Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+            	Frame.BackgroundTransparency = 1
+            	Frame.BorderColor3 = Color3.new(0, 0, 0)
+            	Frame.ClipsDescendants = true
+            	Frame.Position = UDim2.new(0.45, 0, 1, 0)
+            	Frame.Size = UDim2.new(0, 265, 0, 302)
+            	Frame.ZIndex = -1
+            	Frame_2.Parent = Frame
+            	Frame_2.BackgroundColor3 = Color3.new(0.290196, 0, 0.447059)
+            	Frame_2.BorderSizePixel = 0
+            	Frame_2.Size = UDim2.new(0, 260, 0, 20)
+            	infoguiCLOSE.Name = "infoguiCLOSE"
+            	infoguiCLOSE.Parent = Frame_2
+            	infoguiCLOSE.BackgroundColor3 = Color3.new(1, 1, 1)
+            	infoguiCLOSE.BackgroundTransparency = 1
+            	infoguiCLOSE.BorderSizePixel = 0
+            	infoguiCLOSE.Position = UDim2.new(0, 230, 0, 0)
+            	infoguiCLOSE.Size = UDim2.new(0, 30, 0, 20)
+            	infoguiCLOSE.Font = Enum.Font.SourceSansBold
+            	infoguiCLOSE.Text = "X"
+            	infoguiCLOSE.TextColor3 = Color3.new(0.992157, 0.992157, 0.992157)
+            	infoguiCLOSE.TextSize = 20
+            	Frame_3.Parent = Frame
+            	Frame_3.BackgroundColor3 = Color3.new(0.482353, 0.121569, 0.635294)
+            	Frame_3.BorderSizePixel = 0
+            	Frame_3.Position = UDim2.new(0, 0, 0, 20)
+            	Frame_3.Size = UDim2.new(0, 260, 0, 40)
+            	playerName.Name = "playerName"
+            	playerName.Parent = Frame_3
+            	playerName.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerName.BackgroundTransparency = 1
+            	playerName.Position = UDim2.new(0, 10, 0, 5)
+            	playerName.Size = UDim2.new(0, 240, 0, 30)
+            	playerName.Font = Enum.Font.SourceSansLight
+            	playerName.Text = player.Name
+            	playerName.TextColor3 = Color3.new(0.988235, 0.988235, 0.988235)
+            	playerName.TextScaled = true
+            	playerName.TextSize = 14
+            	playerName.TextWrapped = true
+            	Frame_4.Parent = Frame
+            	Frame_4.BackgroundColor3 = Color3.new(0.956863, 0.956863, 0.956863)
+            	Frame_4.BorderSizePixel = 0
+            	Frame_4.Position = UDim2.new(0, 0, 0, 60)
+            	Frame_4.Size = UDim2.new(0, 260, 0, 237)
+            	playerAvatar.Name = "playerAvatar"
+            	playerAvatar.Parent = Frame_4
+            	playerAvatar.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerAvatar.Position = UDim2.new(0, 85, 0, 10)
+            	playerAvatar.Size = UDim2.new(0, 85, 0, 85)
+            	playerAvatar.Image = "https://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&username="..player.Name
+            	playerAccAge.Name = "playerAccAge"
+            	playerAccAge.Parent = Frame_4
+            	playerAccAge.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerAccAge.BackgroundTransparency = 1
+            	playerAccAge.Position = UDim2.new(0, 5, 0, 101)
+            	playerAccAge.Size = UDim2.new(0, 250, 0, 30)
+            	playerAccAge.Font = Enum.Font.SourceSans
+            	playerAccAge.Text = "Account Age: "..player.AccountAge.." ("..age(player.AccountAge)..")"
+            	playerAccAge.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerAccAge.TextScaled = true
+            	playerAccAge.TextSize = 14
+            	playerAccAge.TextWrapped = true
+            	playerId.Name = "playerId"
+            	playerId.Parent = Frame_4
+            	playerId.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerId.BackgroundTransparency = 1
+            	playerId.Position = UDim2.new(0, 5, 0, 131)
+            	playerId.Size = UDim2.new(0, 250, 0, 30)
+            	playerId.Font = Enum.Font.SourceSans
+            	playerId.Text = "Account ID: "..player.UserId
+            	playerId.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerId.TextScaled = true
+            	playerId.TextSize = 14
+            	playerId.TextWrapped = true
+            	playerOs.Name = "playerOs"
+            	playerOs.Parent = Frame_4
+            	playerOs.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerOs.BackgroundTransparency = 1
+            	playerOs.Position = UDim2.new(0, 5, 0, 161)
+            	playerOs.Size = UDim2.new(0, 250, 0, 30)
+            	playerOs.Font = Enum.Font.SourceSansLight
+            	playerOs.Text = "Player OS: "..player.OsPlatform
+            	playerOs.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerOs.TextScaled = true
+            	playerOs.TextSize = 14
+            	playerOs.TextWrapped = true
+            	playerMembership.Name = "playerMembership"
+            	playerMembership.Parent = Frame_4
+            	playerMembership.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerMembership.BackgroundTransparency = 1
+            	playerMembership.Position = UDim2.new(0, 5, 0, 191)
+            	playerMembership.Size = UDim2.new(0, 250, 0, 30)
+            	playerMembership.Font = Enum.Font.SourceSansLight
+            	if player.MembershipType == Enum.MembershipType.None then
+            		playerMembership.Text = "No builder's club."
+            	elseif player.MembershipType == Enum.MembershipType.BuildersClub then
+            		playerMembership.Text = "Builder's club!"
+            	elseif player.MembershipType == Enum.MembershipType.TurboBuildersClub then
+            		playerMembership.Text = "Turbo Builder's club!"
+            	elseif player.MembershipType == Enum.MembershipType.OutrageousBuildersClub then
+            		playerMembership.Text = "Outrageous Builder's club!"
+              elseif player.MembershipType == Enum.MembershipType.Premium then
+                playerMembership.Text = "Has Premium!"
+              elseif mem:sub(1,20) == "Enum.MembershipType." then
+                playerMembership.Text = "Player Membership: " .. mem:sub(21)
+              else playerMembership.Text = "Player Membership: " .. mem
+            	end
+            	playerMembership.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerMembership.TextScaled = true
+            	playerMembership.TextSize = 14
+            	playerMembership.TextWrapped = true
+            	Frame_5.Parent = Frame
+            	Frame_5.BackgroundColor3 = Color3.new(0, 0, 0)
+            	Frame_5.BackgroundTransparency = 0.69999998807907
+            	Frame_5.BorderColor3 = Color3.new(0, 0, 0)
+            	Frame_5.BorderSizePixel = 0
+            	Frame_5.ClipsDescendants = true
+            	Frame_5.Position = UDim2.new(0, 10, 0, 10)
+            	Frame_5.Selectable = true
+            	Frame_5.Size = UDim2.new(0, 255, 0, 292)
+            	Frame_5.ZIndex = -1
+            	Frame_6.Parent = Frame
+            	Frame_6.BackgroundColor3 = Color3.new(0, 0, 0)
+            	Frame_6.BackgroundTransparency = 0.69999998807907
+            	Frame_6.BorderColor3 = Color3.new(0, 0, 0)
+            	Frame_6.BorderSizePixel = 0
+            	Frame_6.ClipsDescendants = true
+            	Frame_6.Position = UDim2.new(0, 8, 0, 8)
+            	Frame_6.Selectable = true
+            	Frame_6.Size = UDim2.new(0, 255, 0, 292)
+            	Frame_6.ZIndex = -1
+            	local closeGet = {}
+            	closeGet.Size = UDim2.new(0, 0, 0, 0)
+            	local openGet = {}
+            	openGet.Position = UDim2.new(0.45, 0, 0.45, 0)
+            	local closeFunction = gsTween:Create(Frame, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), closeGet)
+            	local openFunction = gsTween:Create(Frame, TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), openGet)
+            	infoguiCLOSE.MouseButton1Click:Connect(function()
+            		closeFunction:Play()
+            		Frame:TweenPosition((Frame.Position + UDim2.new(0, 265 / 2, 0, 302 / 2)), "InOut", "Sine", 2)
+            		wait(2.01)
+            		Frame:Destroy()
+            	end)
+            	openFunction:Play()
+            	local UserInputService = game:GetService("UserInputService")
+            	local dragging
+            	local dragInput
+            	local dragStart
+            	local startPos
+            	local function update(input)
+            		local delta = input.Position - dragStart
+            		local dragTime = 0.055
+            		local SmoothDrag = {}
+            		SmoothDrag.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            		local dragSmoothFunction = gsTween:Create(Frame, TweenInfo.new(dragTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), SmoothDrag)
+            		dragSmoothFunction:Play()
+            	end
+            	Frame.InputBegan:Connect(function(input)
+            		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            			dragging = true
+            			dragStart = input.Position
+            			startPos = Frame.Position
+            			input.Changed:Connect(function()
+            				if input.UserInputState == Enum.UserInputState.End then
+            					dragging = false
+            				end
+            			end)
+            		end
+            	end)
+            	Frame.InputChanged:Connect(function(input)
+            		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            			dragInput = input
+            		end
+            	end)
+            	UserInputService.InputChanged:Connect(function(input)
+            		if input == dragInput and dragging and Frame.Size == UDim2.new(0, 265, 0, 302) then
+            			update(input)
+            		end
+            	end)
+            end
+
+
+
+          end
+            end,
+        },
+    },
+}
+
+return BetterIY

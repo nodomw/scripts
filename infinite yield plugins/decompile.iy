@@ -1,0 +1,14 @@
+local Plugin = {
+	["PluginName"] = "Decompile",
+	["PluginDescription"] = "Simple decompile plugin for Synapse X ONLY!",
+	["Commands"] = {
+		["decompile"] = {
+			["Aliases"] = {'decomp',},
+			["Function"] = function()
+			saveinstance()
+			end,
+		},
+	},
+}
+
+return Plugin

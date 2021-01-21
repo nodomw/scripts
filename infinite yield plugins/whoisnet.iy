@@ -1,0 +1,49 @@
+local Plugin = {
+    ["PluginName"] = "whoisnet",
+    ["PluginDescription"] = "Tell you who as a simulation radius supperior at 1000",
+    ["Commands"] = {
+        ["whoisnet"] = {
+            ["ListName"] = "whoisnet / win",
+            ["Description"] = "why a desc lol",
+            ["Aliases"] = {"win"},
+            ["Function"] = function(args,speaker)
+                whoisnet = {}
+for i,v in pairs(game.Players:GetPlayers()) do
+    if v.MaximumSimulationRadius > 1000 or v.SimulationRadius > 1000 then
+        table.insert(whoisnet, v.Name)
+    end
+end
+notify("Players who using network: "..table.concat(whoisnet, ","))
+            end
+            -- Originally made by Butterfly3ffect#7960
+        },
+        ["whoisnetchat"] = {
+            ["ListName"] = "whoisnetchat / winchat",
+            ["Description"] = "why a desc lol",
+            ["Aliases"] = {"winchat"},
+            ["Function"] = function(args,speaker)
+                whoisnet2 = {}
+for i,v in pairs(game.Players:GetPlayers()) do
+    if v.MaximumSimulationRadius > 1000 or v.SimulationRadius > 1000 then
+        table.insert(whoisnet2, v.Name)
+    end
+end
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Players who using Network Ownership: "..table.concat(whoisnet2, ", "), "All")
+            end
+            -- Originally made by Butterfly3ffect#7960
+        },
+        ["simulation"] = {
+            ["ListName"] = "simulation [plr]",
+            ["Description"] = "why a desc lol",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                
+                for i,plr in pairs(getPlayer(args[1],speaker))do
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(plr.." Simulation Radius Is: "..game:GetService("Players")[plr].SimulationRadius, "All")
+                end
+            end
+        }
+    }
+}
+
+return Plugin
