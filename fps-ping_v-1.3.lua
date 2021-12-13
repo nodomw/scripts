@@ -14,4 +14,4 @@ _G.High_Ping_Enabled = {
 
 _G.Time_Format = 12 -- 24/12
 
-loadstring(game:HttpGet(("https://raw.githubusercontent.com/IiIIiIiIIIiiIiiIIiIIIii-warrior/scripts/master/fps.lua"), true))()
+loadstring(syn.request({url = "https://raw.githubusercontent.com/IiIIiIiIIIiiIiiIIiIIIii-warrior/scripts/master/fps.lua", Method = "GET"}).Body)()

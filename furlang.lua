@@ -1,10 +1,12 @@
--- go talk in furry language, feel free to add more owos to the owos table
 local owos = {
+    "'w'",
+    "OwO",
+    "owo",
     "UwU",
     "uwu",
     "^w^",
     ">w<",
-    "(´•ω•`)"
+    "(´•ω•`)",
 }
 
 local hyper_links = {}

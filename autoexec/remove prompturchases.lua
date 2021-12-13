@@ -1,1 +1,0 @@
-game:GetService("CoreGui").PurchasePromptApp.PurchasePromptUI.Visible = false

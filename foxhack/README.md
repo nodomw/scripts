@@ -1,2 +1,1 @@
-# foxhack
-something i got around making when [fps counter](https://github.com/wintea/scripts/blob/master/scripts/fps-ping_v-1.3.lua) got detected
+this shit kinda sucks just use the drawing api script thats in autoexec

