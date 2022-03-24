@@ -8,6 +8,8 @@ most of the scripts here are open-sourced on purpose, mainly because of the reas
 
 if you've got any additions / recommendations feel free to make a pull request or issue according to what it is
 
+i will be making this repository SPM (Synapse Package Manager) compatible when it gets released
+
 other scripts i thought of including but then they also have a github:
 
 * [Infinite yield](https://github.com/EdgeIY/infiniteyield)
@@ -19,6 +21,6 @@ open command menu (`ctrl + p`)
 then type
 `ext install fyz.synapse-ws-serv`
 
-* [simplespy](simplespy.lua): cool remote spy, [repo](https://github.com/exxtremestuffs/SimpleSpySource)
-* [alora](alora.lua): Open source counter blox movement/legit script their [discord](https://discord.gg/R5aNJNmUMn), [github](https://github.com/sj0rs1/alora)
-* [robloxlspsynx](robloxlspsynx.lua): In-Game autocomplete support for the Roblox LSP VSCode plugin. **May cause stutters.**
+* [simplespy](scripts/simplespy.lua): cool remote spy, [repo](https://github.com/exxtremestuffs/SimpleSpySource)
+* [alora](scripts/alora.lua): Open source counter blox movement/legit script their [discord](https://discord.gg/R5aNJNmUMn), [github](https://github.com/sj0rs1/alora)
+* [robloxlspsynx](scripts/robloxlspsynx.lua): In-Game autocomplete support for the Roblox LSP VSCode plugin. **May cause stutters.**
